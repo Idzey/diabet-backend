@@ -3,12 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 import uuid
 
-from .models.ml_models import DiabetesPredictor
-from .schemas.prediction_schemas import (
+from app.models.ml_models import DiabetesPredictor
+from app.schemas.prediction_schemas import (
     PredictionRequest, PredictionResponse, ModelTrainingResponse,
-    ModelInfo, ModelType, PatientData
+    ModelInfo, ModelType
 )
-from .utils.data_preprocessing import validate_medical_data, get_health_recommendations
+from app.utils.data_preprocessing import validate_medical_data, get_health_recommendations
 
 # Инициализация приложения
 app = FastAPI(
@@ -236,5 +236,7 @@ async def get_sample_patient_data():
 
 if __name__ == "__main__":
     import uvicorn
+    import os
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

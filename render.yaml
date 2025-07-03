@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: diabetes-prediction-api
+    env: python
+    buildCommand: "pip install -r requirements.txt && mkdir -p data/datasets && mkdir -p data/diabetes_models"
+    startCommand: "python main.py"
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    healthCheckPath: /health
